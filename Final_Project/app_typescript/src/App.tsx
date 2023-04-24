@@ -44,7 +44,7 @@ function App() {
         setSelectedPage={setSelectedPage} 
         /> 
         <Home setSelectedPage={setSelectedPage} />
-      {/** <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> */} 
+       <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> 
       </div>
     </>
   )
