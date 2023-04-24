@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:9000/')
+    fetch('http://localhost:9000/testAPI')
       .then(response => response.text())
       .then(data => {
         setApiResponse(data);
@@ -45,7 +45,6 @@ function App() {
         /> 
         <Home setSelectedPage={setSelectedPage} />
       {/** <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> */} 
-        <p className="App-intro">{apiResponse}</p>
       </div>
     </>
   )
