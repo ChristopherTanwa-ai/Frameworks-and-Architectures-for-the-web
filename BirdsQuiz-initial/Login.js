@@ -27,9 +27,9 @@ function Wcounter(){
 }
 
 function display(){
-    document.getElementById("attempts").innerHTML = "You had: " + localStorage.getItem("counter") + " attempts"
-    document.getElementById("wins").innerHTML = "You had: " + localStorage.getItem("loseCount") + " losses"
-    document.getElementById("losses").innerHTML = "You had: " + localStorage.getItem("winCount") + " wins"
+    document.getElementById("attempts").innerHTML = localStorage.getItem("counter") + " attempts"
+    document.getElementById("wins").innerHTML =  localStorage.getItem("loseCount") + " losses"
+    document.getElementById("losses").innerHTML = localStorage.getItem("winCount") + " wins"
 }
 
 function reset(){

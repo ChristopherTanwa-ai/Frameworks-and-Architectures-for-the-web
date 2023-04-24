@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="statistics.js"></script>
+    <script src="birdQuiz.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="bird-quiz-1.css" />
+  </head>
+
+  <body>
+    <h1 id="q1" class="question-text"></h1>
+    <div class="list-of-answers">
+      <!--
+      <a href="/_2secondTest.html">
+        <figure class="answer">
+          <img src="/images/_1firstTest/Ostrich.jpg" />
+          <figcaption>Ostrich</figcaption>
+        </figure>
+      </a>
+      <a href="/_4lose.html">
+        <figure class="answer">
+          <img src="/images/_1firstTest/Emu.jpg" />
+          <figcaption>Emu</figcaption>
+        </figure>
+      </a>
+      <a href="/_4lose.html">
+        <figure class="answer">
+          <img src="/images/_1firstTest/Falco_peregrinus.jpg" />
+          <figcaption>Peregrine Falcon</figcaption>
+        </figure>
+      </a>
+      <a href="/_4lose.html">
+        <figure class="answer">
+          <img src="/images/_1firstTest/penguin.jpg" />
+          <figcaption>Penguin</figcaption>
+        </figure>
+      </a>
+      -->
+    </div>
+    <script type="module">
+
+      /* OLD CODE
+            import * as q from "./birdQuiz.js"
+            document.getElementById('q1').innerHTML = q.getQuiz().questions[0].questionText
+      
+      */
+
+    /* NEW CODE TO IMPLEMENT
+       import Web API async function getQuiz()  from quiz-service.js   
+       call getQuiz() to get quiz object and set document.getElementById('q1').innerHTML to the questionText
+       note that getQuiz() mis an async function qwhich return a promise
+     */
+
+      import { getQuiz } from "./quiz-service.js";
+      document.body.onload = incAttempts(); // increment attempts
+
+      getQuiz().then((quiz) => {
+        document.getElementById("q1").innerHTML =
+          quiz.questions[0].questionText;
+        
+       
+        let string = "";
+/*
+for(i=0;i<Quiz.questions[0].answers.length;i++){
+  let answer = Quiz.questions[0].answers[i];
+  string += `<a href='/_4lose.html'> <figure class='answer'><img src='${answer.imgUrl}' /><figcaption>${answer.text}</figcaption></figure></a> `
+}
+document.querySelector("list-of-answers").innerHTML =
+string;
+*/
+          } 
+      );
+
+    </script>
+  </body>
+</html>
