@@ -4,11 +4,10 @@ import HomeProducts from "@/scenes/homeProducts";
 import { useEffect, useState } from "react";
 import { SelectedPage } from "./shared/types";
 
-
-
 function App() {
-  const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home)
+  const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
+  const [apiResponse, setApiResponse] = useState<string>("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,7 +22,19 @@ function App() {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll",handleScroll)
    
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:9000/testAPI')
+      .then(response => response.text())
+      .then(data => {
+        setApiResponse(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <>
       <div className='app bg-200'>
@@ -34,6 +45,7 @@ function App() {
         /> 
         <Home setSelectedPage={setSelectedPage} />
       {/** <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> */} 
+        <p className="App-intro">{apiResponse}</p>
       </div>
     </>
   )
