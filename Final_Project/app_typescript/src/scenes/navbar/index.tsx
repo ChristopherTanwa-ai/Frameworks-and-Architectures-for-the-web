@@ -18,6 +18,7 @@ const flexbetween = "flex items-center justify-between";
 const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
 const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
+
   return (
     <nav>
         <div className={`${navbarBackground} ${flexbetween} fixed top-0 z-30 w-full py-6`}>

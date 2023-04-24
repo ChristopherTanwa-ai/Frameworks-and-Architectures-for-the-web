@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:9000/testAPI')
+    fetch('http://localhost:9000/')
       .then(response => response.text())
       .then(data => {
         setApiResponse(data);
