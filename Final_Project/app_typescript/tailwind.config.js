@@ -8,11 +8,12 @@ export const theme = {
       "gray-100": "#9b9ece",
       "gray-400" : "#9b9ece",
       "gray-500": "#9b9ece",
-      "primary-100": "#fefae0",
+      "primary-100": "#fefcfb",
       "primary-300": "#473bf0",
       "primary-500": "#6665dd",
       "secondary-400": "#9b9ece",
       "secondary-500": "#473bf0",
+      "primary-red":"#c44536",
     },
     backgroundImage: (theme) => ({
       "gradient-yellowred": "linear-gradient(90deg, #acadbc 0%, #473bf0 100%)",

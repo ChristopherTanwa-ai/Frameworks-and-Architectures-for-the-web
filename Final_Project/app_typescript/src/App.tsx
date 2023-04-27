@@ -2,13 +2,17 @@ import Navbar from "@/scenes/navbar";
 import Home from "@/scenes/home";
 import HomeProducts from "@/scenes/homeProducts";
 import { useEffect, useState } from "react";
-import { SelectedPage } from "./shared/types";
+import { Poster, SelectedPage } from "./shared/types";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
-  const [apiResponse, setApiResponse] = useState<string>("");
+  const [apiResponse, setApiResponse] = useState<Record<string, Poster>>({});
+  
 
+  
+
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0){
@@ -25,15 +29,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:9000/testAPI')
-      .then(response => response.text())
+    fetch('http://localhost:9000/randomPosters')
+      .then(response => response.json())
       .then(data => {
         setApiResponse(data);
+        console.log(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
   }, []);
+
 
   return (
     <>
@@ -44,10 +50,11 @@ function App() {
         setSelectedPage={setSelectedPage} 
         /> 
         <Home setSelectedPage={setSelectedPage} />
-       <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> 
+       <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} apiResponse={apiResponse}/> 
       </div>
     </>
   )
 }
+
 
 export default App
