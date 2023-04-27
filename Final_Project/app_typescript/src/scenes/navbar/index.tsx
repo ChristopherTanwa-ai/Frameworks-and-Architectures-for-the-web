@@ -5,6 +5,7 @@ import Link from "./Link"
 import { SelectedPage } from "@/shared/types"
 import useMediaQuery from "@/hooks/useMediaQuery"
 import ActionButton from "@/shared/ActionButton"
+import Link2 from "./Link2"
 
 
 type Props = {
@@ -31,10 +32,10 @@ const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
                    {isAboveMediumScreens ? (
                    <div className={`${flexbetween} w-full`}>
                         <div className={`${flexbetween} gap-8 text-sm`}>
-                            <Link page="Home"
+                            <Link2 page="Home"
                              selectedPage={selectedPage}
                              setSelectedPage={setSelectedPage} />
-                            <Link page="Shop"  
+                            <Link2 page="Shop"  
                              selectedPage={selectedPage}
                              setSelectedPage={setSelectedPage} />
                             <Link page="About" 
@@ -73,10 +74,10 @@ const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
                     </div>
                     {/** Menu items */}
                     <div className="ml-[33%] flex flex-col gap-10 text-2xl">
-                            <Link page="Home"
+                            <Link2 page="Home"
                              selectedPage={selectedPage}
                              setSelectedPage={setSelectedPage} />
-                            <Link page="Shop"  
+                            <Link2 page="Shop"  
                              selectedPage={selectedPage}
                              setSelectedPage={setSelectedPage} />
                             <Link page="About" 

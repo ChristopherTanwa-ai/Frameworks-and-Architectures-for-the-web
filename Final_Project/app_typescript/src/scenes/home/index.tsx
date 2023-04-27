@@ -1,22 +1,26 @@
 import React from 'react'
-import { SelectedPage } from '@/shared/types';
+import { Poster, SelectedPage } from '@/shared/types';
 import ActionButton from '@/shared/ActionButton';
 import HomePageText from "@/assets/HomePageText.png";
 import HomePageGraphic from "@/assets/HomePageGraphic.png";
 import useMediaQuery from "@/hooks/useMediaQuery"
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { motion } from 'framer-motion';
+import HomeProducts from './HomeProducts';
+
 
 
 type Props = {
-    setSelectedPage: (value: SelectedPage) => void
+    setSelectedPage: (value: SelectedPage) => void;
+    apiResponse: Record<string, Poster>;
 }
 
-const index = ({setSelectedPage}: Props) => {
+const index = ({setSelectedPage,apiResponse}: Props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   return (
+    <>
     <section
     id='home'
     className='gap-16 bg-gray-20 py-10 md:h-full md:pb-0'
@@ -78,8 +82,10 @@ const index = ({setSelectedPage}: Props) => {
             <img src={HomePageGraphic} alt="home-pageGraphic" />
         </div>
     </motion.div>
-
+    
     </section>
+    <HomeProducts apiResponse={apiResponse} setSelectedPage={setSelectedPage}></HomeProducts>
+    </>
   )
 }
 
