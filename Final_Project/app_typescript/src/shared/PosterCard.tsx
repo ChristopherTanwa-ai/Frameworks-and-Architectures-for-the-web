@@ -17,11 +17,13 @@ const PosterCard: React.FC<PosterCardProps> = ({
   price,
   description,
   img,
+  key,
   setSelectedPage,
 }) => {
+  const title_noSpace = title.replace(/\s/g, "");
   return (
-    <a href="/go">
-    <div className="poster-card py-2
+    <a href={`${title_noSpace}`}>
+    <div className="poster-card py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 
     ">
       <img src={img} alt={title} 
       className='max-w-xs '/>

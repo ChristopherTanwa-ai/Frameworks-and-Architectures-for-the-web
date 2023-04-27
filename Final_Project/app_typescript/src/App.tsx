@@ -5,6 +5,8 @@ import { useEffect, useState, Fragment } from "react";
 import { Poster, SelectedPage } from "./shared/types";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Shop from "./scenes/shop";
+
+
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
@@ -19,7 +21,7 @@ function App() {
     case "/":
         component = <Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />
       break;
-    case "/#shop":
+    case "/shop":
         component = <Shop></Shop>
       break;
     default:
