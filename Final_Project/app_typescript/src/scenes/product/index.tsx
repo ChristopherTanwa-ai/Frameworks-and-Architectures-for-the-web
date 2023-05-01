@@ -34,9 +34,9 @@ const PosterPage = () => {
   return (
     <>
     <section
-    className='"gap-16 bg-gray-20 py-10 md:h-full md:pb-0"'
+    className='"gap-16 bg-gray-20 py-10 md:h-full md:pb-0 mx-auto"'
     >
-    <div>
+    <div className='mx-auto'>
     <PosterCard artist={apiResponse.artist} img={apiResponse.img} description={apiResponse.description} price={apiResponse.price} title={apiResponse.title} key={apiResponse.key}></PosterCard>
 
     </div>
