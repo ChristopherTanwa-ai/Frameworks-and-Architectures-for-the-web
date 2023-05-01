@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Bars3Icon,XMarkIcon } from "@heroicons/react/24/solid"
+import { useEffect, useRef, useState } from "react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid"
 import Logo from "@/assets/Logo.svg"
 import Link from "./Link"
 import { SelectedPage } from "@/shared/types"
@@ -7,49 +7,95 @@ import useMediaQuery from "@/hooks/useMediaQuery"
 import ActionButton from "@/shared/ActionButton"
 import Link2 from "./Link2"
 import { motion } from "framer-motion"
-
+import Login from "@/scenes/login";
 
 type Props = {
     isTopOfPage: boolean;
     selectedPage: SelectedPage;
     setSelectedPage: (value: SelectedPage) => void
+
 }
 
-const Navbar = ({isTopOfPage, selectedPage,setSelectedPage}: Props) => {
-const flexbetween = "flex items-center justify-between";
-const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
-const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
+const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+    const flexbetween = "flex items-center justify-between";
+    const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
+    const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
+    const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const loginRef = useRef<HTMLDivElement>(null);
+    const [showLogin, setShowLogin] = useState(false);
+    const [username, setUsername] = useState<string | null>(null);
 
-  return (
-    <nav>
-        <div className={`${navbarBackground} ${flexbetween} fixed top-0 z-30 w-full py-6`}>
-            <div className={`${flexbetween} mx-auto w-5/6`}>
-                <div className={`${flexbetween} w-full gap-16 `}>
-                    {/* Left side */}
-                    <img src={Logo} alt="logo" className="max-w-8 max-h-8" />
-                
-                    {/* Right side */}
-                   {isAboveMediumScreens ? (
-                   <div className={`${flexbetween} w-full`}>
-                        <div className={`${flexbetween} gap-8 text-sm`}>
-                            <Link2 page="Home"
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link2 page="Shop"  
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link page="About" 
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link page="Cart" 
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage}/>
-                        </div>
-                        <div className={`${flexbetween} gap-8`}>
-                        <p>Login</p>
-                        <ActionButton setSelectedPage={setSelectedPage}>Sign Up</ActionButton>
-                        </div>
+    const handleLogin = () => {
+        setIsLoggedIn(true);
+        setShowLogin(false);
+        setSelectedPage(SelectedPage.Home);
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            const display = JSON.parse(user);
+          setUsername(display.username);
+        }
+    };
+
+    const handleLoginButtonClick = () => {
+        setIsLoggedIn(false);
+        setShowLogin(!showLogin);
+    };
+
+    const handleClickOutsideLogin = (e: MouseEvent) => {
+        if (loginRef.current && !loginRef.current.contains(e.target as Node)) {
+            setIsLoggedIn(true);
+        }
+    };
+
+    useEffect(() => {
+
+        document.addEventListener("mousedown", handleClickOutsideLogin);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutsideLogin);
+        };
+    }, []);
+    return (
+        <nav>
+            <div className={`${navbarBackground} ${flexbetween} fixed top-0 z-30 w-full py-6`}>
+                <div className={`${flexbetween} mx-auto w-5/6`}>
+                    <div className={`${flexbetween} w-full gap-16 `}>
+                        {/* Left side */}
+                        <img src={Logo} alt="logo" className="max-w-8 max-h-8" />
+
+                        {/* Right side */}
+                        {isAboveMediumScreens ? (
+                            <div className={`${flexbetween} w-full`}>
+                                <div className={`${flexbetween} gap-8 text-sm`}>
+                                    <Link2 page="Home"
+                                        selectedPage={selectedPage}
+                                        setSelectedPage={setSelectedPage} />
+                                    <Link2 page="Shop"
+                                        selectedPage={selectedPage}
+                                        setSelectedPage={setSelectedPage} />
+                                    <Link page="About"
+                                        selectedPage={selectedPage}
+                                        setSelectedPage={setSelectedPage} />
+                                    <Link page="Cart"
+                                        selectedPage={selectedPage}
+                                        setSelectedPage={setSelectedPage} />
+
+                                    {isLoggedIn ? (
+                                        <p> Welcome {username}</p>
+                                    ) : (
+                                        <button onClick={handleLoginButtonClick}>Login</button>
+                                    )}
+
+                                    {showLogin && (
+                                        <div className="fixed top-20 right-10">
+                                            <Login
+                                                isLoggedIn={isLoggedIn}
+                                                handleLogin={handleLogin}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
                     </div>)
                         :(
                             <button
