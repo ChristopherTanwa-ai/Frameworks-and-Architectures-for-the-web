@@ -25,7 +25,7 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
         
     <section
     id='homeproducts'
-    className='mx-auto min-h-full w-5/6 py-20'>
+    className='mx-auto min-h-full w-5/6 py-10'>
         <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.HomeProducts)}
         initial="hidden"

@@ -7,6 +7,7 @@ import useMediaQuery from "@/hooks/useMediaQuery"
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { motion } from 'framer-motion';
 import HomeProducts from './HomeProducts';
+import MainAbout from './indexAbout';
 
 
 
@@ -85,7 +86,10 @@ const index = ({setSelectedPage,apiResponse}: Props) => {
     
     </section>
     <HomeProducts apiResponse={apiResponse} setSelectedPage={setSelectedPage}></HomeProducts>
+
+    <MainAbout setSelectedPage={setSelectedPage} > </MainAbout> 
     </>
+
   )
 }
 
