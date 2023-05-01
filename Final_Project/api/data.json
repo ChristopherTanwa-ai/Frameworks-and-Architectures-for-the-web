@@ -9,7 +9,7 @@
             "style" : "Abstract"
             
         },
-        "SelfPortrait": {
+        "Self-Portrait": {
             "id":"2",
             "artist": "Klorofyl",
             "title": "Self-Portrait",
@@ -17,10 +17,10 @@
             "description": "The art poster is an original work of art, which was painted with oil paint in 2022. Then photographed and edited and set up digitally. The art poster is a self-portrait, and describes chaos, calm, freedom and enjoyment.",
             "img": "/src/assets/images//Klorofyl.png"
         },
-        "ArtistGarden": {
+        "TheArtist'sGardenatVetheuil": {
             "id": "3",
             "artist": "Claude Monet",
-            "title": "The Artist's Aarden at Vétheuil",
+            "title": "The Artist's Garden at Vetheuil",
             "price": 200,
             "description": "The years that Monet spent at a rented pink house in Vétheuil were among the most difficult of his life. The market for his work had collapsed; his wife fell ill and died; his servants all quit. And yet the pictures he painted there, in his lush, sunny garden conceived as an outdoor studio, are among the most exuberant of his career. ",
             "img": "/src/assets/images//Monet - The Artist's Garden at Vetheuil Plakat.png"
@@ -66,7 +66,7 @@
             "description": "John Miller was an English artist born in London who became famous for his idyllic representation of beach scenes in his native Cornwall. Most of his paintings were of the West Penwith Peninsula and Tresco in the Isles of Scilly. ",
             "img": "/src/assets/images//JohnMillerSummer.png"
         },
-        "How_can_I_have_enough_of_life_and_love": {
+        "HowcanIhaveenoughoflifeandlove": {
             "id":"9",
             "artist": "William Morris",
             "title": "How can I have enough of life and love?",
@@ -75,7 +75,7 @@
             "img": "/src/assets/images//LifeandLove.jpg",
             "style" : "Abstract"
         },
-        "Simply_Living_x_The_Breakfast": {
+        "SimplyLivingxTheBreakfast": {
             "id":"10",
             "artist": "MaThoo Art",
             "title": "Simply Living x The Breakfast",
@@ -83,7 +83,7 @@
             "description": "The pictures by Art by Maja Thomasen are colorful still life paintings in acrylic by the Danish artist Maja D.T. Holm. The paintings portray the typical scenery of everyday life, especially from the Danish households. The pictures show the trivial and obvious sides of the days of the year, as something that is still worth noticing. ",
             "img": "/src/assets/images//MaThooArtSimply.png"
         },
-        "Berggruen_Cie": {
+        "Berggruen&Cie": {
             "id":"11",
             "artist": "Henri Matisse",
             "title": "Berggruen & Cie",
@@ -100,7 +100,7 @@
             "description": "La Colombe de la Paix was painted by Pablo Picasso during the Vietnam War approximately 60-65 years ago. The exact year is not known. The beautiful dove carries an olive branch in its beak and is inspired by the international symbol of peace. A beautiful and significant, small poster to have hanging in the home. Perfect for the minimalist and the art lover.",
             "img": "/src/assets/images//Screenshot 2023-03-06 at 12-24-15 Et La Paix exhibition poster - Picasso.png"
         },
-        "Portrait_de_Marie-Therese_Walter": {
+        "PortraitdeMarie-ThereseWalter": {
             "id":"13",
             "artist": "Pablo Picasso",
             "title": "Portrait de Marie-Therese Walter",
@@ -116,7 +116,7 @@
             "description": "Taishō are design posters with inspiration from Scandinavia and Japan. Taishō is a Japanese word for \"contrast\" ",
             "img": "/src/assets/images//TaishoUdon.png"
         },
-        "UnPoDiBlu": {
+        "UnPo'DiBlu": {
             "id":"15",
             "artist": "The indigo collection No2",
             "title": "Un Po' Di Blu",

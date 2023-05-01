@@ -1,4 +1,5 @@
 import { SelectedPage } from "@/shared/types";
+import { log } from "console";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 type Props = {
@@ -9,26 +10,21 @@ type Props = {
 
 const Link2 = ({ page, selectedPage, setSelectedPage }: Props) => {
   const lowerCasePage = page.toLowerCase().replace(/ /g, "") as SelectedPage;
+  const newPath = removeProductPath(lowerCasePage); // Remove "/product" from the URL
 
   return (
     <a
-    className=" transistion duration-500 hover:text-primary-500"
-    href={`${lowerCasePage}`}>
-            {page}
-    </a>
-    /*
-    <AnchorLink
-      
-    transistion duration-500 hover:text-primary-500
-   `}
-      href={`${lowerCasePage}`}
+      className="transition duration-500 hover:text-primary-500"
+      href={`/${newPath}`} // Set the URL to "/home" instead of "/product/home"
       onClick={() => setSelectedPage(lowerCasePage)}
     >
       {page}
-    </AnchorLink>
-     */
+    </a>
   );
- 
 };
+
+function removeProductPath(path: string) {
+  return path.replace('/product', '');
+}
 
 export default Link2;
