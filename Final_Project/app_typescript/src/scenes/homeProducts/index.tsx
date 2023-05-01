@@ -2,8 +2,8 @@ import { SelectedPage, Poster } from '@/shared/types';
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { motion } from 'framer-motion';
 import Htext from '@/shared/Htext';
-import PosterCard from '@/shared/PosterCard';
-
+import PosterCard from './PosterCard';
+import getRandomPosters from '@/shared/getRandomPoster';
 
 
 type Props = {
@@ -19,7 +19,7 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     const posterObj = apiResponse;
-    
+    const randomPosters = getRandomPosters(posterObj);
   return (
   
         
@@ -28,14 +28,6 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
     className='mx-auto min-h-full w-5/6 py-20'>
         <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.HomeProducts)}
-        initial="hidden"
-             whileInView="visible"
-             viewport={{once:true, amount:0.5}}
-             transition={{duration:0.5}}
-             variants={{
-                hidden : {opacity:0, y:50},
-                visible: {opacity:1, y:0}
-             }}
         >
             {/**Header */}
             <div className='md:my-5 md:w-3/5 mx-auto text-center'>
@@ -52,7 +44,6 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
             key={poster.id}
             artist={poster.artist}
             title={poster.title}
-            description={poster.description}
             price={poster.price}
             img={poster.img}
             setSelectedPage={setSelectedPage}
