@@ -1,7 +1,7 @@
-import PosterCard from '@/shared/PosterCard';
-import { Poster } from '@/shared/types';
-import React, { useEffect, useState } from 'react'
-
+import PosterCard from "@/shared/PosterCard";
+import { Poster, SelectedPage } from "@/shared/types";
+import React, { useEffect, useState } from "react";
+import HomeProducts from "../home/HomeProducts";
 
 type PosterCardProps = {
   key: string;
@@ -13,37 +13,77 @@ type PosterCardProps = {
 };
 
 const PosterPage = () => {
-  const [apiResponse, setApiResponse] = useState<PosterCardProps>({ key: '', artist: '', title: '', price: 0, description: '', img: '' });
+  const [apiResponse, setApiResponse] = useState<PosterCardProps>({
+    key: "",
+    artist: "",
+    title: "",
+    price: 0,
+    description: "",
+    img: "",
+  });
+  const [randomPoster, setRandomPoster] = useState<Record<string, Poster>>({});
   const path = window.location.pathname;
   console.log(path);
 
   useEffect(() => {
     fetch(`http://localhost:9000${path}`)
-      .then(response => response.json()) // Parse the response body as JSON data
-      .then(data => {
+      .then((response) => response.json()) // Parse the response body as JSON data
+      .then((data) => {
         setApiResponse(data);
-        console.log(data);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
   }, [path]);
 
-  console.log(apiResponse);
+  useEffect(() => {
+    fetch("http://localhost:9000/randomPosters")
+      .then((response) => response.json())
+      .then((data) => {
+        setRandomPoster(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <>
-    <section
-    className='"gap-16 bg-gray-20 py-10 md:h-full md:pb-0 mx-auto"'
-    >
-    <div className='mx-auto'>
-    <PosterCard artist={apiResponse.artist} img={apiResponse.img} description={apiResponse.description} price={apiResponse.price} title={apiResponse.title} key={apiResponse.key}></PosterCard>
-
-    </div>
-    </section>
-    
+      <div className="h-full  pt-[10%]">
+        <div className="columns-2">
+          <div className="img ml-[20rem]">
+            <img
+              className="max-w-sm shadow-md"
+              src={apiResponse.img}
+              alt="posterimg"
+            ></img>
+            {/**<PosterCard artist={apiResponse.artist} img={apiResponse.img} description={apiResponse.description} price={apiResponse.price} title={apiResponse.title} key={apiResponse.key}></PosterCard> **/}
+          </div>
+          <div className="md:break-after-auto">
+            <p className="font-sans text-5xl text-indigo-900 ">
+              {apiResponse.artist}
+            </p>
+            <p className="pb-[1rem] font-sans text-xl text-indigo-400">
+              {apiResponse.title}
+            </p>
+            <p className="pb-[3rem] font-sans text-xl text-amber-700">
+              {apiResponse.price} kr
+            </p>
+            <p className="mr-[20rem] font-thin text-sky-800">
+              {apiResponse.description}
+            </p>
+            <button className="mt-[18%] rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky-300">
+              Buy
+            </button>
+          </div>
+        </div>
+        <div className="mt-[10%]">
+        <HomeProducts text="EXPLORE OTHER POSTERS" apiResponse={randomPoster} ></HomeProducts>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default PosterPage
+export default PosterPage;

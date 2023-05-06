@@ -85,7 +85,7 @@ const index = ({setSelectedPage,apiResponse}: Props) => {
     </motion.div>
     
     </section>
-    <HomeProducts apiResponse={apiResponse} setSelectedPage={setSelectedPage}></HomeProducts>
+    <HomeProducts text='EXPLORE NEW POSTERS' apiResponse={apiResponse} setSelectedPage={setSelectedPage}></HomeProducts>
 
     <MainAbout setSelectedPage={setSelectedPage} > </MainAbout> 
     </>
