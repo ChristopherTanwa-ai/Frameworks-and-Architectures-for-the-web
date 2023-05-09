@@ -1,36 +1,18 @@
+import { Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import Navbar from "@/scenes/navbar";
 import Home from "@/scenes/home";
 import HomeProducts from "@/scenes/home/HomeProducts";
 import { useEffect, useState, Fragment } from "react";
 import { Poster, SelectedPage } from "./shared/types";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Shop from "./scenes/shop";
-
+import Product from "@/scenes/product"
+import PosterPage from "@/scenes/product";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
   const [apiResponse, setApiResponse] = useState<Record<string, Poster>>({});
-  
-  let component
-  
-  switch (window.location.pathname) {
-    case "/home":
-        component = <Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />
-      break;
-    case "/":
-        component = <Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />
-      break;
-    case "/shop":
-        component = <Shop></Shop>
-      break;
-    default:
-      break;
-  }
 
-  
-
-  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0){
@@ -58,28 +40,21 @@ function App() {
       });
   }, []);
 
-
   return (
-  
-    <>
-      <div className='app bg-200'>
-        
-           <Navbar
+    <Router>
+      <Navbar
         isTopOfPage={isTopOfPage}
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage} 
-        /> 
-      
-      {component}      
-            
-        
-         
-     
-      </div>
-      
-    </>
-  )
+      />
+      <Routes>
+        <Route path="/" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
+        <Route path="/home" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:param" element={<PosterPage  />} />
+      </Routes>
+    </Router>
+  );
 }
 
-
-export default App
+export default App;
