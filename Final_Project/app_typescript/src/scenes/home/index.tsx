@@ -28,7 +28,7 @@ const index = ({setSelectedPage,apiResponse}: Props) => {
     >
     {/**Image and main header */}
     <motion.div
-    className='md:flex mx-auto w-5/6 items-center justify-center md:h-5/6'
+    className='md:flex sm:flex mx-auto w-5/6 items-center justify-center md:h-5/6'
     onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
     >
         {/** main header */}

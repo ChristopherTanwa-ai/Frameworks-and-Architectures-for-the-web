@@ -23,8 +23,7 @@ const PosterPage = () => {
   });
   const [randomPoster, setRandomPoster] = useState<Record<string, Poster>>({});
   const path = window.location.pathname;
-  console.log(path);
-
+  
   useEffect(() => {
     fetch(`http://localhost:9000${path}`)
       .then((response) => response.json()) // Parse the response body as JSON data
@@ -51,34 +50,34 @@ const PosterPage = () => {
   return (
     <>
       <div className="h-full  pt-[10%]">
-        <div className="columns-2">
-          <div className="img ml-[20rem]">
+        <div className=" sm:columns-2 columns-1 ">
+          <div className="mt-10 md:ml-[20rem]">
             <img
-              className="max-w-sm shadow-md"
+              className="max-w-xs mx-auto md:max-w-sm shadow-md"
               src={apiResponse.img}
               alt="posterimg"
             ></img>
             {/**<PosterCard artist={apiResponse.artist} img={apiResponse.img} description={apiResponse.description} price={apiResponse.price} title={apiResponse.title} key={apiResponse.key}></PosterCard> **/}
           </div>
-          <div className="md:break-after-auto">
-            <p className="font-sans text-5xl text-indigo-900 ">
+          <div id="container" className="sm:text-center justify-center mx-auto">
+            <p className="font-sans text-3xl md:text-5xl text-indigo-900 ">
               {apiResponse.artist}
             </p>
-            <p className="pb-[1rem] font-sans text-xl text-indigo-400">
+            <p className="pb-[1rem] font-sans text-base text-center md:text-xl text-indigo-400">
               {apiResponse.title}
             </p>
-            <p className="pb-[3rem] font-sans text-xl text-amber-700">
+            <p className="md:pb-[3rem] text-center font-sans text-xl text-amber-700">
               {apiResponse.price} kr
             </p>
-            <p className="mr-[20rem] font-thin text-sky-800">
+            <p className=" mx-8 text-center font-thin text-sky-800">
               {apiResponse.description}
             </p>
-            <button className="mt-[18%] rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky-300">
+            <button className="ml-[16%] md:mt-[18%] md:ml-[0%] mt-2 rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky-300">
               Buy
             </button>
           </div>
         </div>
-        <div className="mt-[10%]">
+        <div className="mx-auto mt-[10%]">
         <HomeProducts text="EXPLORE OTHER POSTERS" apiResponse={randomPoster} ></HomeProducts>
         </div>
       </div>

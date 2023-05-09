@@ -45,7 +45,7 @@ const HomeProducts = ({setSelectedPage, apiResponse, text}: Props) => {
             </div>
 
         {/**Product cards */}
-        <div className='flex flex-wrap justify-between pt-5'>
+        <div className='flex flex-wrap md:justify-between md:pt-5 mx-auto justify-center'>
         {
           
         Object.values(apiResponse).map((poster: Poster) => (
