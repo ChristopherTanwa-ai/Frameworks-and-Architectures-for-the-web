@@ -64,29 +64,6 @@ const Login = ({ isLoggedIn, handleLogin }: Props) => {
     }
   };
 
-/*
-  //midlertidigt
-  const storedUser = sessionStorage.getItem("username");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.password === password) {
-        localStorage.setItem("isLoggedIn", "true");
-        handleLogin();
-      } else {
-        alert("Incorrect password");
-      }
-    } else {
-      // Add the new user to sessionStorage with an empty basket
-      const newUser = { username, password, basket: [] };
-      console.log(username);
-      console.log(password);
-      sessionStorage.setItem("username", JSON.stringify(newUser));
-      localStorage.setItem("isLoggedIn", "true");
-      handleLogin();
-    }
-  };
-  */
-
   return (
     <form onSubmit={handleSubmit}>
       <label>

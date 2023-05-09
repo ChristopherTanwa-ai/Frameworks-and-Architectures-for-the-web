@@ -4,7 +4,6 @@ import Logo from "@/assets/Logo.svg"
 import Link from "./Link"
 import { SelectedPage } from "@/shared/types"
 import useMediaQuery from "@/hooks/useMediaQuery"
-import ActionButton from "@/shared/ActionButton"
 import Link2 from "./Link2"
 import { motion } from "framer-motion"
 import Login from "@/scenes/login";
@@ -22,9 +21,16 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const loginRef = useRef<HTMLDivElement>(null);
     const [showLogin, setShowLogin] = useState(false);
     const [username, setUsername] = useState<string | null>(null);
+
+    useEffect(() => {
+        const user = sessionStorage.getItem('user');
+        if (user){
+            setIsLoggedIn(true)
+            const display = JSON.parse(user);
+            setUsername(display.username)};
+    });
 
     const handleLogin = () => {
         setIsLoggedIn(true);
@@ -42,20 +48,6 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         setShowLogin(!showLogin);
     };
 
-    const handleClickOutsideLogin = (e: MouseEvent) => {
-        if (loginRef.current && !loginRef.current.contains(e.target as Node)) {
-            setIsLoggedIn(true);
-        }
-    };
-
-    useEffect(() => {
-
-        document.addEventListener("mousedown", handleClickOutsideLogin);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutsideLogin);
-        };
-    }, []);
     return (
         <nav>
             <div className={`${navbarBackground} ${flexbetween} fixed top-0 z-30 w-full py-6`}>

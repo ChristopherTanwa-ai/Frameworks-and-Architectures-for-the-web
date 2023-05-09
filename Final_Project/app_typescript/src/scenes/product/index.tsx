@@ -48,6 +48,50 @@ const PosterPage = () => {
       });
   }, []);
 
+  /*const addToCart = () => {
+    const user = JSON.parse(sessionStorage.getItem('user')!);
+    const requestBody = { user, poster: apiResponse };
+    fetch(`http://localhost:9000${path}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Show a success message to the user
+          alert("Poster added to cart!");
+        } else {
+          // Show an error message to the user
+          alert("Error adding poster to cart!");
+        }
+      })
+  };*/
+
+  const addToCart = () => {
+    const user = JSON.parse(sessionStorage.getItem('user')!);
+    const requestBody = { user, poster: apiResponse };
+    fetch(`http://localhost:9000${path}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Show a success message to the user
+          alert("Poster added to cart!");
+        } else {
+          // Show an error message to the user
+          alert("Error adding poster to cart!");
+        }
+      })
+  };
+
   return (
     <>
       <div className="h-full  pt-[10%]">
@@ -73,8 +117,11 @@ const PosterPage = () => {
             <p className="mr-[20rem] font-thin text-sky-800">
               {apiResponse.description}
             </p>
-            <button className="mt-[18%] rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky-300">
-              Buy
+            <button
+              className="mt-[18%] rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky-300"
+              onClick={addToCart}
+            >
+              Add to cart
             </button>
           </div>
         </div>

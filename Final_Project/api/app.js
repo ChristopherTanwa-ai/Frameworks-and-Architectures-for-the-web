@@ -9,12 +9,17 @@ var usersRouter = require("./routes/users.js");
 var randomPostersRouter = require("./routes/randomPosters.js");
 var allPoster = require("./routes/allProducts.js");
 var poster = require("./routes/onePoster.js");
+const corsOptions = {
+  origin: "http://localhost:5173", // Replace with your client-side domain
+  credentials: true,
+};
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(cors());
+//app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
