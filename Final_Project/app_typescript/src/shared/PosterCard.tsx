@@ -22,18 +22,18 @@ const PosterCard: React.FC<PosterCardProps> = ({
 }) => {
   const title_noSpace = title.replace(/\s/g, "");
   return (
-    <a href={`${title_noSpace}`}>
-    <div className="poster-card py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 
-    ">
-      <img src={img} alt={title} 
-      className='max-w-xs '/>
-      <h2 className='font-bold text-primary-500'>{title}</h2>
-      <p className='font-thin'>{artist}</p>
-      <p className='text-primary-red'>{price} kr</p>
-    </div>
+    <a className='h-[550px] mb-3' href={`${title_noSpace}`}>
+      <div className="relative h-full py-2">
+        <img src={img} alt={title} className='max-w-[300px] transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300' />
+        <div className='absolute bottom-4 left-0'>
+          <h2 className='font-bold text-primary-500'>{title}</h2>
+          <p className='font-thin'>{artist}</p>
+          <p className='text-primary-red'>{price} kr</p>
+        </div>
+      </div>
 
     </a>
-    
+
   );
 };
 

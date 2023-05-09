@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var randomPostersRouter = require("./routes/randomPosters.js");
 var allPoster = require("./routes/allProducts.js");
+var allArtists = require("./routes/allArtists.js");
+var allPrices = require("./routes/allPrices.js");
 var app = express();
 
 // view engine setup
@@ -24,13 +26,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/randomPosters", randomPostersRouter);
 app.use("/allPosters", allPoster);
+app.use("/allArtists/", allArtists);
+app.use("/allPrices/", allPrices);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
