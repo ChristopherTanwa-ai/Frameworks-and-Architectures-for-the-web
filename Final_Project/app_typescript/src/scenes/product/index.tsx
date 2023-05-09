@@ -28,6 +28,8 @@ const PosterPage = () => {
     fetch(`http://localhost:9000${path}`)
       .then((response) => response.json()) // Parse the response body as JSON data
       .then((data) => {
+        console.log(data);
+        
         setApiResponse(data);
       })
       .catch((error) => {
