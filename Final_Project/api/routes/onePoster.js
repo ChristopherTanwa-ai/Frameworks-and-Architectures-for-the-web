@@ -8,6 +8,7 @@ const fs = require('fs');
 router.get("/:poster", function(req, res, next) {
   const{poster} = req.params;
   const artist = mainData[poster]
+  console.log(artist);
   res.send(artist);
 });
 
