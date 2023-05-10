@@ -26,10 +26,11 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
 
     useEffect(() => {
         const user = sessionStorage.getItem('user');
-        if (user){
+        if (user) {
             setIsLoggedIn(true)
             const display = JSON.parse(user);
-            setUsername(display.username)};
+            setUsername(display.username)
+        };
     });
 
     const handleLogin = () => {
@@ -39,7 +40,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         const user = sessionStorage.getItem('user');
         if (user) {
             const display = JSON.parse(user);
-          setUsername(display.username);
+            setUsername(display.username);
         }
     };
 
@@ -47,6 +48,13 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         setIsLoggedIn(false);
         setShowLogin(!showLogin);
     };
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        sessionStorage.removeItem('user')
+        setUsername(null);
+
+    }
 
     return (
         <nav>
@@ -74,7 +82,11 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                                         setSelectedPage={setSelectedPage} />
 
                                     {isLoggedIn ? (
+                                        <>
                                         <p> Welcome {username}</p>
+                                        <button onClick={handleLogout}> Log out </button>
+                                        </>
+                                        
                                     ) : (
                                         <button onClick={handleLoginButtonClick}>Login</button>
                                     )}
@@ -88,57 +100,57 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                                         </div>
                                     )}
                                 </div>
-                    </div>)
-                        :(
-                            <button
-                             className="rounded-full bg-secondary-500 p-2"
-                             onClick={() => {setIsMenuToggled(!isMenuToggled)}}
-                             >
-                        <Bars3Icon className="h-6 w-6 text-white" />
-                            
-                            </button>
-                        )
-                    }
+                            </div>)
+                            : (
+                                <button
+                                    className="rounded-full bg-secondary-500 p-2"
+                                    onClick={() => { setIsMenuToggled(!isMenuToggled) }}
+                                >
+                                    <Bars3Icon className="h-6 w-6 text-white" />
+
+                                </button>
+                            )
+                        }
                     </div>
                 </div>
             </div>
             {/** Mobile Menu Modal */}
             {!isAboveMediumScreens && isMenuToggled && (
                 <motion.div
-                initial="hidden"
-            whileInView="visible"
-            viewport={{once:true, amount:0.5}}
-            transition={{delay: 0.0, duration:0.3}}
-            variants={{
-               hidden : {opacity:0, x:50},
-               visible: {opacity:1, x:0}
-            }}
-                className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl">
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ delay: 0.0, duration: 0.3 }}
+                    variants={{
+                        hidden: { opacity: 0, x: 50 },
+                        visible: { opacity: 1, x: 0 }
+                    }}
+                    className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl">
                     {/**Close icon */}
                     <div className="flex justify-end p-12">
                         <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
-                        <XMarkIcon className="h-6 w-6 text-black" />
+                            <XMarkIcon className="h-6 w-6 text-black" />
                         </button>
                     </div>
                     {/** Menu items */}
                     <div className="ml-[33%] flex flex-col gap-10 text-2xl">
-                            <Link2 page="Home"
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link2 page="Shop"  
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link page="About" 
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage} />
-                            <Link page="Cart" 
-                             selectedPage={selectedPage}
-                             setSelectedPage={setSelectedPage}/>
-                        </div>
+                        <Link2 page="Home"
+                            selectedPage={selectedPage}
+                            setSelectedPage={setSelectedPage} />
+                        <Link2 page="Shop"
+                            selectedPage={selectedPage}
+                            setSelectedPage={setSelectedPage} />
+                        <Link page="About"
+                            selectedPage={selectedPage}
+                            setSelectedPage={setSelectedPage} />
+                        <Link page="Cart"
+                            selectedPage={selectedPage}
+                            setSelectedPage={setSelectedPage} />
+                    </div>
                 </motion.div>
             )}
-    </nav>
-  )
+        </nav>
+    )
 }
 
 export default Navbar
