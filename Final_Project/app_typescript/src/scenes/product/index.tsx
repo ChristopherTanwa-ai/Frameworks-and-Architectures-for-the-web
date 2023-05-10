@@ -48,28 +48,6 @@ const PosterPage = () => {
       });
   }, []);
 
-  /*const addToCart = () => {
-    const user = JSON.parse(sessionStorage.getItem('user')!);
-    const requestBody = { user, poster: apiResponse };
-    fetch(`http://localhost:9000${path}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Show a success message to the user
-          alert("Poster added to cart!");
-        } else {
-          // Show an error message to the user
-          alert("Error adding poster to cart!");
-        }
-      })
-  };*/
-
   const addToCart = () => {
     const user = JSON.parse(sessionStorage.getItem('user')!);
     const requestBody = { user, poster: apiResponse };
@@ -83,10 +61,10 @@ const PosterPage = () => {
     })
       .then((response) => {
         if (response.ok) {
-          // Show a success message to the user
+          //Success!
           alert("Poster added to cart!");
         } else {
-          // Show an error message to the user
+          //Frick!
           alert("Error adding poster to cart!");
         }
       })

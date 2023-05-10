@@ -15,23 +15,11 @@ router.post("/:poster", (req, res) => {
   try {
     const filePath = path.join(__dirname, 'users.json');
     const { user, poster } = req.body;
-
-    // Get the user ID from the session
     const curuser = user;
-
-    // Load the users data from the file
     const usersData = JSON.parse(fs.readFileSync(filePath, "utf8"));
-
-    // Find the user with the given ID
     const userFound = usersData.find((u) => u.username === curuser.username);
-
-    // Add the poster to the user's basket
     userFound.basket.push(poster);
-
-    // Save the updated users data back to the file
     fs.writeFileSync(filePath, JSON.stringify(usersData));
-
-    // Return a success response
     res.status(200).json({ message: "Poster added to basket" });
   } catch (error) {
     console.error("Error in add to cart route:", error);
