@@ -38,4 +38,15 @@ router.get('/users', (req, res) => {
   res.json(users);
 });
 
+function getUsersFromFile() {
+  const filePath = path.join(__dirname, 'users.json');
+  const users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return users;
+}
+
+function saveUsersToFile(users) {
+  const filePath = path.join(__dirname, 'users.json');
+  fs.writeFileSync(filePath, JSON.stringify(users), 'utf8');
+}
+
 module.exports = router;
