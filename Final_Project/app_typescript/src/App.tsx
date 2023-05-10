@@ -1,17 +1,13 @@
-import { Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import Navbar from "@/scenes/navbar";
 import Home from "@/scenes/home";
-import HomeProducts from "@/scenes/home/HomeProducts";
-import { useEffect, useState, Fragment } from "react";
-import { Poster, SelectedPage } from "./shared/types";
-import Shop from "./scenes/shop";
-import Product from "@/scenes/product"
-import PosterPage from "@/scenes/product";
+import HomeProducts from "@/scenes/homeProducts";
+import { useEffect, useState } from "react";
+import { SelectedPage } from "./shared/types";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
-  const [apiResponse, setApiResponse] = useState<Record<string, Poster>>({});
+  const [apiResponse, setApiResponse] = useState<string>("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +25,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:9000/randomPosters')
-      .then(response => response.json())
+    fetch('http://localhost:9000/testAPI')
+      .then(response => response.text())
       .then(data => {
         setApiResponse(data);
-        console.log(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -41,20 +36,18 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Navbar
+    <>
+      <div className='app bg-200'>
+        <Navbar
         isTopOfPage={isTopOfPage}
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage} 
-      />
-      <Routes>
-        <Route path="/" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
-        <Route path="/home" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/product/:param" element={<PosterPage  />} />
-      </Routes>
-    </Router>
-  );
+        /> 
+        <Home setSelectedPage={setSelectedPage} />
+      {/** <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> */} 
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App

@@ -14,10 +14,4 @@ export interface Poster {
     img: string;
     price: number;
   }
-
-  export interface AboutType {
-    icon: JSX.Element;
-    title: string, 
-    description: string;
-  }
     
