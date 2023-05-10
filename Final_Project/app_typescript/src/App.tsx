@@ -1,13 +1,17 @@
+import { Route, BrowserRouter as Router, Routes, useParams } from "react-router-dom";
 import Navbar from "@/scenes/navbar";
 import Home from "@/scenes/home";
-import HomeProducts from "@/scenes/homeProducts";
-import { useEffect, useState } from "react";
-import { SelectedPage } from "./shared/types";
+import HomeProducts from "@/scenes/home/HomeProducts";
+import { useEffect, useState, Fragment } from "react";
+import { Poster, SelectedPage } from "./shared/types";
+import Shop from "./scenes/shop";
+import Product from "@/scenes/product"
+import PosterPage from "@/scenes/product";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage,SetIsTopOfPage] = useState<boolean>(true);
-  const [apiResponse, setApiResponse] = useState<string>("");
+  const [apiResponse, setApiResponse] = useState<Record<string, Poster>>({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +29,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:9000/testAPI')
-      .then(response => response.text())
+    fetch('http://localhost:9000/randomPosters')
+      .then(response => response.json())
       .then(data => {
         setApiResponse(data);
+        console.log(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -36,18 +41,20 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div className='app bg-200'>
-        <Navbar
+    <Router>
+      <Navbar
         isTopOfPage={isTopOfPage}
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage} 
-        /> 
-        <Home setSelectedPage={setSelectedPage} />
-      {/** <HomeProducts setSelectedPage={setSelectedPage} selectedPage={selectedPage} /> */} 
-      </div>
-    </>
-  )
+      />
+      <Routes>
+        <Route path="/" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
+        <Route path="/home" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:param" element={<PosterPage  />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -10,12 +10,13 @@ type Props = {
   setSelectedPage: (value: SelectedPage) => void;
   //mainData: Record<string, Posters>;
   apiResponse: Record<string, Poster>;
+  text: string;
 };
 
 //const product: Array<Poster> = [Posters]
 
 
-const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
+const HomeProducts = ({setSelectedPage, apiResponse, text}: Props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     const posterObj = apiResponse;
@@ -23,9 +24,9 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
   return (
   
         
-    <section
+    <div
     id='homeproducts'
-    className='mx-auto min-h-full w-5/6 py-20'>
+    className='mx-auto min-h-full w-5/6 py-10'>
         <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.HomeProducts)}
         initial="hidden"
@@ -39,7 +40,7 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
         >
             {/**Header */}
             <div className='md:my-5 md:w-3/5 mx-auto text-center'>
-                <Htext>EXPLORE NEW POSTERS</Htext>
+                <Htext>{text}</Htext>
 
             </div>
 
@@ -62,7 +63,7 @@ const HomeProducts = ({setSelectedPage, apiResponse}: Props) => {
 
         </div>
         </motion.div>
-    </section>
+    </div>
     
   )
 }

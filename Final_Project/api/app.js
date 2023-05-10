@@ -5,14 +5,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require("./routes/testAPI.js");
+var usersRouter = require("./routes/users.js");
+var randomPostersRouter = require("./routes/randomPosters.js");
+var allPoster = require("./routes/allProducts.js");
+var poster = require("./routes/onePoster.js");
+const corsOptions = {
+  origin: "http://localhost:5173", // Replace with your client-side domain
+  credentials: true,
+};
+var allArtists = require("./routes/allArtists.js");
+var allPrices = require("./routes/allPrices.js");
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(cors());
+//app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,15 +29,19 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
+app.use('/', usersRouter);
+app.use("/randomPosters", randomPostersRouter);
+app.use("/allPosters", allPoster);
+app.use("/product",poster)
+app.use("/allArtists/", allArtists);
+app.use("/allPrices/", allPrices);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

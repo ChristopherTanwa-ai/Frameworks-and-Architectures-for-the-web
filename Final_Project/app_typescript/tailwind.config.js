@@ -8,11 +8,12 @@ export const theme = {
       "gray-100": "#9b9ece",
       "gray-400" : "#9b9ece",
       "gray-500": "#9b9ece",
-      "primary-100": "#fefae0",
+      "primary-100": "#fefcfb",
       "primary-300": "#473bf0",
       "primary-500": "#6665dd",
       "secondary-400": "#9b9ece",
       "secondary-500": "#473bf0",
+      "primary-red":"#c44536",
     },
     backgroundImage: (theme) => ({
       "gradient-yellowred": "linear-gradient(90deg, #acadbc 0%, #473bf0 100%)",
@@ -34,5 +35,14 @@ export const theme = {
     sm: "768px",
     md: "1060px",
   },
+  fontSize: {
+    sm: '0.8rem',
+    base: '1rem',
+    xl: '1.25rem',
+    '2xl': '1.563rem',
+    '3xl': '1.953rem',
+    '4xl': '2.441rem',
+    '5xl': '3.052rem',
+  }
 };
 export const plugins = [];
