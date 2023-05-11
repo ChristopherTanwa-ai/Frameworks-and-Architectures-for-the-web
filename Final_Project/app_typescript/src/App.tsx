@@ -7,6 +7,7 @@ import { Poster, SelectedPage } from "./shared/types";
 import Shop from "./scenes/shop";
 import Product from "@/scenes/product"
 import PosterPage from "@/scenes/product";
+import Cart from "./scenes/cart";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
@@ -33,7 +34,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setApiResponse(data);
-        console.log(data);
+      
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -51,6 +52,7 @@ function App() {
         <Route path="/" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
         <Route path="/home" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/product/:param" element={<PosterPage  />} />
       </Routes>
     </Router>
