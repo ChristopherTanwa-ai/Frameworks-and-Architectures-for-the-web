@@ -15,12 +15,13 @@ const Cart = (props: Props) => {
     fetch('http://localhost:9000/users')
       .then(response => response.json())
       .then(data => {
+        //JAKEN - bruger bare den første user der er i json filen lige nu. Vi skal have fat i den der er logget ind
         const username = data[0].username;
         setUsername(username);
 
         const cartItems = data[0].basket.map(item => ({
           ...item,
-          quantity: 1 // Initialize quantity to 1 for each item
+          quantity: 1 // Initialize quantity to 1 for each item. JAKEN det her er fint medmindre vi vil have at en user skal kunne lægge flere posters i basket fra en posterside
         }));
         setCart(cartItems);
       })
