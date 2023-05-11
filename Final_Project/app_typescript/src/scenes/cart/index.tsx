@@ -66,7 +66,7 @@ const Cart = (props: Props) => {
         <div className='border-solid ounded-md border-stone-400 text-center col-span-12 row-span-10'>
           {cart.map(item => (
             <div className='flex flex-nowrap pb-3' key={item.id}>
-              <img src={item.img} className='max-w-[8%] max-h-[8%] shadow-md ml-2 mt-2' />
+              <img src={item.img} className='md:max-w-[8%] md:max-h-[8%] shadow-md ml-2 mt-2' />
               <div className='flex flex-grow items-center'>
                 <div className='ml-10 w-[30%]'>
                   <p className='font-sans text-stone-800'>{item.artist}</p>
@@ -75,16 +75,16 @@ const Cart = (props: Props) => {
                 <p className='ml-auto font-sans text-black'>{item.quantity}</p>
                 <div className='ml-auto space-x-3'>
                   <button
-                    onClick={() => handleIncrease(item.id)}
-                    className='font-sans text-emerald-700 text-2xl hover:text-emerald-900'
-                  >
-                    +
-                  </button>
-                  <button
                     onClick={() => handleDecrease(item.id)}
                     className='font-sans text-orange-700 text-2xl hover:text-orange-900'
                   >
                     -
+                  </button>
+                  <button
+                    onClick={() => handleIncrease(item.id)}
+                    className='font-sans text-emerald-700 text-2xl hover:text-emerald-900'
+                  >
+                    +
                   </button>
                 </div>
                 <p className='ml-auto font-mono text-black mr-4'>
