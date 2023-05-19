@@ -16,10 +16,13 @@ const Cart = (props: Props) => {
       .then(response => response.json())
       .then(data => {
         //JAKEN - bruger bare den første user der er i json filen lige nu. Vi skal have fat i den der er logget ind
+        const user = JSON.parse(sessionStorage.getItem('user')!);
+        const userFound = data.find((u: { username: any; }) => u.username === user.username);
+        const username2 = userFound.username
         const username = data[0].username;
-        setUsername(username);
+        setUsername(username2);
 
-        const cartItems = data[0].basket.map(item => ({
+        const cartItems = userFound.basket.map((item: any) => ({
           ...item,
           quantity: 1 // Initialize quantity to 1 for each item. JAKEN det her er fint medmindre vi vil have at en user skal kunne lægge flere posters i basket fra en posterside
         }));
