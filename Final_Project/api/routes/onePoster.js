@@ -19,9 +19,17 @@ router.post("/:poster", (req, res) => {
     const curuser = user;
     const usersData = JSON.parse(fs.readFileSync(filePath, "utf8"));
     const userFound = usersData.find((u) => u.username === curuser.username);
-    userFound.basket.push(poster);
-    fs.writeFileSync(filePath, JSON.stringify(usersData));
-    res.status(200).json({ message: "Poster added to basket" });
+    console.log(poster)
+    console.log(userFound)
+    if (userFound.basket.some(item => item.id === poster.id)) {
+      console.error("Poster already in cart");
+      res.status(400).json({ message: "Poster already in cart" });
+    }
+    else {
+      userFound.basket.push(poster);
+      fs.writeFileSync(filePath, JSON.stringify(usersData));
+      res.status(200).json({ message: "Poster added to basket" });
+    }
   } catch (error) {
     console.error("Error in add to cart route:", error);
     res.status(500).json({ message: "Internal server error poop" });
