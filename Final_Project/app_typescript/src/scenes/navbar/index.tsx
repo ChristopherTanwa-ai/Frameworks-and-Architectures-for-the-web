@@ -7,24 +7,26 @@ import useMediaQuery from "@/hooks/useMediaQuery"
 import Link2 from "./Link2"
 import { motion } from "framer-motion"
 import Login from "@/scenes/login";
+import { Button } from "react-bootstrap"
 
 type Props = {
     isTopOfPage: boolean;
     selectedPage: SelectedPage;
     setSelectedPage: (value: SelectedPage) => void
-
+    isLoggedIn: boolean; // Add the isLoggedIn prop
+    handleLogout:any;
 }
 
-const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage,isLoggedIn, handleLogout }: Props) => {
     const flexbetween = "flex items-center justify-between";
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    /* const [isLoggedIn, setIsLoggedIn] = useState(false); */
     const [showLogin, setShowLogin] = useState(false);
     const [username, setUsername] = useState<string | null>(null);
 
-    useEffect(() => {
+   /*  useEffect(() => {
         const user = sessionStorage.getItem('user');
         if (user) {
             setIsLoggedIn(true)
@@ -54,7 +56,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         sessionStorage.removeItem('user')
         setUsername(null);
 
-    }
+    } */
 
     return (
         <nav>
@@ -80,10 +82,14 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                                     <Link2 page="Cart"
                                         selectedPage={selectedPage}
                                         setSelectedPage={setSelectedPage} />
-                                    <Link2 page="Register"
+                                    {!isLoggedIn && ( <Link2 page="Register"
                                      selectedPage={selectedPage}
                                      setSelectedPage={setSelectedPage}
-                                    />
+                                    />)}
+
+
+                                    {isLoggedIn && (<button className="text-white rounded-full bg-red-500 px-4 py-1 hover:bg-red-400" onClick={handleLogout}>Logout</button>)}
+                                   
                                     {/* {isLoggedIn ? (
                                         <>
                                         <p> Welcome {username}</p>
