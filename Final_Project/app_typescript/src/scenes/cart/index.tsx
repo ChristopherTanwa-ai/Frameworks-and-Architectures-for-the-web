@@ -94,7 +94,8 @@ const Cart = (props: Props) => {
   return (
     <div className='h-full pt-[10%] mx-[10%]'>
       <h1 className='basis-3/5 font-montserrat text-3xl text-fuchsia-900 pb-4'>
-        {username}'s basket
+        
+        {username + "'s"} Cart
       </h1>
       <div className='grid grid-cols-12 grid-rows-12'>
         
