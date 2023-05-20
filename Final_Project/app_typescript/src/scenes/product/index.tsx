@@ -62,7 +62,11 @@ const PosterPage = () => {
         if (response.ok) {
           //Success!
           alert("Poster added to cart!");
-        } else {
+        } 
+        else if (response.status === 400) {
+          // Bad request
+          alert("Error adding poster to cart: Poster already in cart!");}
+          else {
           //Frick!
           alert("Error adding poster to cart!");
         }
