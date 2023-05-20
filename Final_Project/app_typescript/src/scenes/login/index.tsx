@@ -1,4 +1,7 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
+
+
 
 type Props = {
   isLoggedIn: boolean;
@@ -8,30 +11,31 @@ type Props = {
 const Login = ({ isLoggedIn, handleLogin }: Props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+ 
 
-  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Make a POST request to the server with the entered username and password
     const response = await fetch("http://localhost:9000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
-      
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
     // Check if the login was successful
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
 
       // Update the parent state to indicate that the user is logged in
       const user = { username, password, basket: [] };
-      sessionStorage.setItem('user', JSON.stringify(user));
-
+      sessionStorage.setItem("user", JSON.stringify(user));
+      
       handleLogin();
+       // Navigate to the home page
     } else {
       // Check if the username already exists in users.json
       const usersResponse = await fetch("http://localhost:9000/users");
@@ -39,51 +43,79 @@ const Login = ({ isLoggedIn, handleLogin }: Props) => {
       console.log(usersResponse);
       console.log(users);
       const user = users.find((u: any) => u.username === username);
-      
+
       if (user) {
-        alert('Incorrect password');
+        alert("Incorrect password");
       } else {
         // Add the new user to users.json with an empty basket
         const newUser = { username, password, basket: [] };
         const newUserResponse = await fetch("http://localhost:9000/users", {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(newUser),
         });
         if (newUserResponse.ok) {
           // Update the parent state to indicate that the user is logged in
-          
-          sessionStorage.setItem('user', JSON.stringify(newUser));
+
+          sessionStorage.setItem("user", JSON.stringify(newUser));
           handleLogin();
         } else {
-          alert('Failed to create user');
+          alert("Failed to create user");
         }
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <div className="mt-5 flex flex-wrap justify-center ">
+      <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      >
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className="font-bold text-slate-900">Username</label>
+        </div>
+        <div>
+          <input
+            className="mb-5 rounded-md border border-black px-1 py-1 text-black"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div>
+          <div>
+            <label className="font-bold text-slate-900">Password</label>
+          </div>
+          <div>
+            <input
+              className="mb-5 rounded-md border border-black px-1 py-1 text-black"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex justify-center">
+        <button
+          className="self-auto border bg-fuchsia-800 px-10 py-1 font-bold text-white"
+          type="submit"
+          
+        >
+          Login
+        </button>
+        </div>
+        
+      </form>
+
+        
+      </motion.div>
+      
+    </div>
   );
 };
 
