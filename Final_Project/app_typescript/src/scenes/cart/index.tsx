@@ -19,7 +19,6 @@ const Cart = (props: Props) => {
         const user = JSON.parse(sessionStorage.getItem('user')!);
         const userFound = data.find((u: { username: any; }) => u.username === user.username);
         const username2 = userFound.username
-        const username = data[0].username;
         setUsername(username2);
 
         const cartItems = userFound.basket.map((item: any) => ({
@@ -49,6 +48,39 @@ const Cart = (props: Props) => {
           : item
       ).filter(item => item.quantity > 0)
     );
+  };
+
+  const handleRemove = (itemId: string) => {
+    setCart(prevCart =>
+      prevCart.filter(item => item.id !== itemId)
+    );
+  };
+
+  const handleRemove2 = (itemId: string) => {
+    // Make a POST request to the server to remove the item from the user's basket
+    fetch('http://localhost:9000/remove', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        itemId: itemId
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // Item was successfully removed, update the cart state
+          setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
+        } else {
+          // Display an error message or handle the error as needed
+          console.error('Error removing item:', data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error removing item:', error);
+      });
   };
 
   const calculateTotalPrice = () => {
@@ -90,6 +122,13 @@ const Cart = (props: Props) => {
                     +
                   </button>
                 </div>
+                <div className='ml-auto space-x-3'>
+                  <button
+                  onClick={() => handleRemove2(item.id)}
+                  className='flex items-center justify-center w-8 h-8 bg-red-500 rounded-full hover:bg-red-700 text-white'
+                >
+                  X
+                </button> </div>
                 <p className='ml-auto font-mono text-black mr-4'>
                   {item.price * item.quantity} kr
                 </p>

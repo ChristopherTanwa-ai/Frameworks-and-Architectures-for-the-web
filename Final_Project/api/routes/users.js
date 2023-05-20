@@ -38,6 +38,26 @@ router.get('/users', (req, res) => {
   res.json(users);
 });
 
+router.post('/remove', (req, res) => {
+  const { username, itemId } = req.body;
+  const users = getUsersFromFile();
+
+  const user = users.find((u) => u.username === username);
+  if (user) {
+    const itemIndex = user.basket.findIndex((item) => item.id === itemId);
+    console.log(itemIndex)
+    if (itemIndex !== -1) {
+      user.basket.splice(itemIndex, 1); // Remove the item from the user's basket
+      saveUsersToFile(users); // Save the updated users to the JSON file
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ success: false, message: 'Item not found in basket' });
+    }
+  } else {
+    res.status(404).json({ success: false, message: 'User not found' });
+  }
+});
+
 function getUsersFromFile() {
   const filePath = path.join(__dirname, 'users.json');
   const users = JSON.parse(fs.readFileSync(filePath, 'utf8'));
