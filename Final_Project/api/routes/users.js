@@ -38,12 +38,19 @@ router.get('/users', (req, res) => {
   res.json(users);
 });
 
+router.get('/nousers', (req, res) => {
+  const filePath = path.join(__dirname, 'xBasket.json');
+  const basket = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  res.json(basket);
+});
+
 router.post('/remove', (req, res) => {
   const { username, itemId } = req.body;
+  if (username) {
+  //Insert if username ...
   const users = getUsersFromFile();
-
   const user = users.find((u) => u.username === username);
-  if (user) {
+  console.log(user)
     const itemIndex = user.basket.findIndex((item) => item.id === itemId);
     console.log(itemIndex)
     if (itemIndex !== -1) {
@@ -54,9 +61,15 @@ router.post('/remove', (req, res) => {
       res.status(404).json({ success: false, message: 'Item not found in basket' });
     }
   } else {
-    res.status(404).json({ success: false, message: 'User not found' });
+    const filePath = path.join(__dirname, 'xBasket.json');
+    const basket = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const itemIndex = basket.findIndex((item) => item.id === itemId);
+    if (itemIndex !== -1) {
+      basket.splice(itemIndex, 1); // Remove the item from the user's basket
+      fs.writeFileSync(filePath, JSON.stringify(basket), 'utf8'); // Save the updated users to the JSON file
+      res.json({ success: true });
   }
-});
+}});
 
 function getUsersFromFile() {
   const filePath = path.join(__dirname, 'users.json');
