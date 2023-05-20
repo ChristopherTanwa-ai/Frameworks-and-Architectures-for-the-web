@@ -8,6 +8,7 @@ import Shop from "./scenes/shop";
 import Product from "@/scenes/product"
 import PosterPage from "@/scenes/product";
 import Cart from "./scenes/cart";
+import Register from "./scenes/Register";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
@@ -53,6 +54,7 @@ function App() {
         <Route path="/home" element={<Home setSelectedPage={setSelectedPage} apiResponse={apiResponse} />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/register" element={< Register />} />
         <Route path="/product/:param" element={<PosterPage  />} />
       </Routes>
     </Router>

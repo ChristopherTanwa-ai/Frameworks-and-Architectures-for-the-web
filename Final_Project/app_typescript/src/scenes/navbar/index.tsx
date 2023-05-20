@@ -80,8 +80,11 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                                     <Link2 page="Cart"
                                         selectedPage={selectedPage}
                                         setSelectedPage={setSelectedPage} />
-
-                                    {isLoggedIn ? (
+                                    <Link2 page="Register"
+                                     selectedPage={selectedPage}
+                                     setSelectedPage={setSelectedPage}
+                                    />
+                                    {/* {isLoggedIn ? (
                                         <>
                                         <p> Welcome {username}</p>
                                         <button onClick={handleLogout}> Log out </button>
@@ -98,7 +101,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
                                                 handleLogin={handleLogin}
                                             />
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                             </div>)
                             : (

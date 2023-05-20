@@ -64,7 +64,7 @@ const PosterPage = () => {
           alert("Poster added to cart!");
         } else {
           //Frick!
-          alert("Error adding poster to cart!");
+          alert("Please login to add poster to cart!");
         }
       })
   };
