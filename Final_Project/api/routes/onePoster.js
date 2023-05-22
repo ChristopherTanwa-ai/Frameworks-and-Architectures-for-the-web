@@ -18,7 +18,7 @@ router.post("/:poster", (req, res) => {
     const curuser = user;
 
     if (curuser === null || curuser === '' || curuser === undefined) {
-      console.log("No user logged in");
+      //console.log("No user logged in");
       const filePath2 = path.join(__dirname, '../data/xBasket.json');
       const basketData = JSON.parse(fs.readFileSync(filePath2, "utf8"));
       if (basketData.includes(poster)) {
@@ -33,7 +33,7 @@ router.post("/:poster", (req, res) => {
     }
     else {
       const usersData = JSON.parse(fs.readFileSync(filePath, "utf8"));
-      console.log("User logged in")
+      //console.log("User logged in")
       const userFound = usersData.find((u) => u.email === curuser.email);
       // console.log(poster)
       // console.log(userFound)

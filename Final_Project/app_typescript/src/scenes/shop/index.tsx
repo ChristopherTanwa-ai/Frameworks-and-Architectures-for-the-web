@@ -94,10 +94,10 @@ const Shop = ({ setSelectedPage }: Props) => {
       setFilteredApiResponse(filteredPosters);
     }
 
-    console.log("apiResponse", apiResponse);
-    console.log("filteredPosters", filteredPosters);
-    console.log("artists", artists);
-    console.log("prices", prices);
+    // console.log("apiResponse", apiResponse);
+    // console.log("filteredPosters", filteredPosters);
+    // console.log("artists", artists);
+    // console.log("prices", prices);
   }, [artists, prices]);
 
   return (

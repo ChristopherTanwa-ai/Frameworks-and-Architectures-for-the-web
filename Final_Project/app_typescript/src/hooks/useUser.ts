@@ -1,11 +1,4 @@
-import { error } from "console";
-import React, { useState, useContext, useCallback, createContext } from "react";
-import { useNavigate } from "react-router-dom";
-
-// export const UserContext = React.createContext<User>({firstName: "", lastName: "", email: "", password: "", basket: []});
-
-// export const useUserContext = () => useContext(UserContext);
-
+import React, { useState, useContext, createContext } from "react";
 export interface User {
   firstName: string;
   lastName: string;
@@ -13,36 +6,7 @@ export interface User {
   password: string;
   basket: string[];
 }
-// function useUserChange() {
-//     const navigate = useNavigate();
-//     const [user, setUser] = useState<User>();
-//     const {} = useUserContext();
-//     // const { added, setAdded, removed, setRemoved, changes } =
-//     //     useDatagridChangeStateContext();
-//     // const getChangeIndex = useCallback(
-//     //     (column: string, row: number): number =>
-//     //         changes.current.findIndex(
-//     //             (change) => change.column === column && change.row === row
-//     //         ), []
-//     // );
-//     const signOut = () => {
-//         user && setUser(undefined)
-//     }
 
-//     const signIn = (firstName: string, lastName: string, email: string, password: string) => {
-//         const user: User = { firstName, lastName, email, password, basket: [] };
-//         setUser(user)
-//         console.log(user)
-//     }
-
-//     return {
-//         user,
-//         signIn,
-//         signOut,
-//     };
-// }
-
-// export default useUserChange
 export interface UseUserChangeState {
   user?: User;
   setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;

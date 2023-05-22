@@ -1,6 +1,5 @@
-import PosterCard from "@/shared/PosterCard";
 import { Poster, SelectedPage } from "@/shared/types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HomeProducts from "../home/HomeProducts";
 import useUser from "@/hooks/useUser";
 
@@ -28,7 +27,7 @@ const PosterPage = ({ setSelectedPage }: Props) => {
   });
   const [randomPoster, setRandomPoster] = useState<Record<string, Poster>>({});
   const path = window.location.pathname;
-  console.log(path);
+  //console.log(path);
   const { user } = useUser();
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const PosterPage = ({ setSelectedPage }: Props) => {
   }, []);
 
   const addToCart = () => {
-    console.log(user);
+    //console.log(user);
     const requestBody = { user, poster: apiResponse };
     fetch(`http://localhost:9000${path}`, {
       method: "POST",

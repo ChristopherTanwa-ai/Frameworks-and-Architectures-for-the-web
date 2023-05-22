@@ -75,9 +75,9 @@ router.post('/remove', (req, res) => {
     //Insert if username ...
     const users = getUsersFromFile();
     const user = users.find((u) => u.email === email);
-    console.log(user)
+    //console.log(user)
     const itemIndex = user.basket.findIndex((item) => item.id === itemId);
-    console.log(itemIndex)
+    //console.log(itemIndex)
     if (itemIndex !== -1) {
       user.basket.splice(itemIndex, 1); // Remove the item from the user's basket
       saveUsersToFile(users); // Save the updated users to the JSON file
