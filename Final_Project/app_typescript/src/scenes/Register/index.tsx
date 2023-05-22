@@ -1,75 +1,44 @@
-import React, { useState } from 'react'
-import Login from '../login';
-import Registerbtn from '../login/registerbtn';
+import React, { useState } from "react";
+import Login from "../login";
+import Registerbtn from "../login/registerbtn";
+import useUser from "@/hooks/useUser";
 
+type Props = {};
 
-
-type Props = {
-  isLoggedIn: boolean; // Add the isLoggedIn prop
-  handleLogin: any;
-  handleLogout:any;
-  username: string;
-};
-
-const Register = ({isLoggedIn, handleLogin, handleLogout, username}: Props) => {
+const Register = ({}: Props) => {
   const [isLoginToggled, setIsLoginToggled] = useState<boolean>(true);
-  const [isRegisterToggled, setIsRegisterToggled] = useState<boolean>(false);
-
-
-  const handleLoginClick = () => {  
-    
-    if (isRegisterToggled) {
-      setIsLoginToggled(!isLoginToggled);
-      setIsRegisterToggled(!isRegisterToggled);
-    } else {
-      setIsLoginToggled(!isLoginToggled);
-    }
-  };
-  
-  const handleRegisterClick = () => {
-    if(isLoginToggled){
-      setIsLoginToggled(!isLoginToggled);
-      setIsRegisterToggled(!isRegisterToggled);
-    }
-    else {
-      setIsRegisterToggled(!isRegisterToggled);
-    }
-    
-  }
+  const { user } = useUser();
 
   return (
-    <div className='h-full pt-[10%] mx-[10%]'>
-    <h1 className='basis-3/5 font-montserrat text-3xl text-black pb-4 text-center' >Hi {username}</h1>
-    <p className='text-center pb-5'>Here you can login, register or delete your user</p>
-      <div className='flex gap-4 justify-center'>
-      {!isLoggedIn ? (
+    <div className="mx-[10%] h-full pt-[10%]">
+      <h1 className="basis-3/5 pb-4 text-center font-montserrat text-3xl text-black">
+        Hi {user?.firstName}
+      </h1>
+      <p className="pb-5 text-center">
+        Here you can login, register or delete your user
+      </p>
+      <div className="flex justify-center gap-4">
+        {!isLoginToggled && (
           <button
-            className="rounded-md text-white bg-secondary-500 px-10 py-2 hover:bg-primary-500 hover:text-white"
-            onClick={handleLoginClick}
+            className="rounded-md bg-secondary-500 px-10 py-2 text-white hover:bg-primary-500 hover:text-white"
+            onClick={() => setIsLoginToggled(true)}
           >
             Login
           </button>
-        ) : (
-          <button
-            className="rounded-md text-white bg-red-700 px-10 py-2 hover:bg-red-500 hover:text-white"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
         )}
 
-      <button className='rounded-md text-white bg-emerald-700 px-10 py-2 hover:bg-emerald-500 hover:text-white'
-      onClick={handleRegisterClick}
-      >Register</button>
+        {isLoginToggled && (
+          <button
+            className="rounded-md bg-emerald-700 px-10 py-2 text-white hover:bg-emerald-500 hover:text-white"
+            onClick={() => setIsLoginToggled(false)}
+          >
+            Register
+          </button>
+        )}
       </div>
-      <div>
-        {isLoginToggled && (<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin}></Login>) }
-      </div>
-      <div>
-        {isRegisterToggled && (<Registerbtn isLoggedIn={isLoggedIn} handleLogin={handleLogin}></Registerbtn>) }
-      </div>
+      {isLoginToggled ? <Login /> : <Registerbtn />}
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

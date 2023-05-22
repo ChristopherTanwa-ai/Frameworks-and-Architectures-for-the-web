@@ -1,120 +1,84 @@
+import useUser from "@/hooks/useUser";
+import useUserChange, { User } from "@/hooks/useUser";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+type Props = {};
 
-
-type Props = {
-  isLoggedIn: boolean;
-  handleLogin: () => void;
-};
-
-const Login = ({ isLoggedIn, handleLogin }: Props) => {
-  const [username, setUsername] = useState("");
+const Login = ({}: Props) => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
+  const { signIn } = useUser();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Make a POST request to the server with the entered username and password
-    const response = await fetch("http://localhost:9000/login", {
+    const response = await fetch("http://localhost:9000/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     // Check if the login was successful
     if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
+      const data: User = await response.json();
+      const { firstName, lastName } = data;
 
-      // Update the parent state to indicate that the user is logged in
-      const user = { username, password, basket: [] };
-      sessionStorage.setItem("user", JSON.stringify(user));
-      
-      handleLogin();
-       // Navigate to the home page
+      // Add the user to the context
+      signIn(firstName, lastName, email, password);
+      navigate("/shop");
     } else {
-      // Check if the username already exists in users.json
-      const usersResponse = await fetch("http://localhost:9000/users");
-      const users = await usersResponse.json();
-      console.log(usersResponse);
-      console.log(users);
-      const user = users.find((u: any) => u.username === username);
-
-      if (user) {
-        alert("Incorrect password");
-      } else {
-        // Add the new user to users.json with an empty basket
-        const newUser = { username, password, basket: [] };
-        const newUserResponse = await fetch("http://localhost:9000/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        });
-        if (newUserResponse.ok) {
-          // Update the parent state to indicate that the user is logged in
-
-          sessionStorage.setItem("user", JSON.stringify(newUser));
-          handleLogin();
-        } else {
-          alert("Failed to create user");
-        }
-      }
+      alert("Invalid email or password");
     }
   };
 
   return (
     <div className="mt-5 flex flex-wrap justify-center ">
       <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="font-bold text-slate-900">Username</label>
-        </div>
-        <div>
-          <input
-            className="mb-5 rounded-md border border-black px-1 py-1 text-black"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
+        <form onSubmit={handleSubmit}>
           <div>
-            <label className="font-bold text-slate-900">Password</label>
+            <label className="font-bold text-slate-900">Email</label>
           </div>
           <div>
             <input
               className="mb-5 rounded-md border border-black px-1 py-1 text-black"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-        </div>
-        <div className="flex justify-center">
-        <button
-          className="self-auto border bg-fuchsia-800 px-10 py-1 font-bold text-white"
-          type="submit"
-          
-        >
-          Login
-        </button>
-        </div>
-        
-      </form>
-
-        
+          <div>
+            <div>
+              <label className="font-bold text-slate-900">Password</label>
+            </div>
+            <div>
+              <input
+                className="mb-5 rounded-md border border-black px-1 py-1 text-black"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <button
+              className="self-auto border bg-fuchsia-800 px-10 py-1 font-bold text-white"
+              type="submit"
+            >
+              Login
+            </button>
+          </div>
+        </form>
       </motion.div>
-      
     </div>
   );
 };

@@ -29,10 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/', usersRouter);
+app.use('/users/', usersRouter);
 app.use("/randomPosters", randomPostersRouter);
 app.use("/allPosters", allPoster);
-app.use("/product",poster)
+app.use("/product", poster)
 app.use("/allArtists/", allArtists);
 app.use("/allPrices/", allPrices);
 // catch 404 and forward to error handler

@@ -2,6 +2,7 @@ import PosterCard from "@/shared/PosterCard";
 import { Poster, SelectedPage } from "@/shared/types";
 import React, { useEffect, useState } from "react";
 import HomeProducts from "../home/HomeProducts";
+import useUser from "@/hooks/useUser";
 
 type PosterCardProps = {
   key: string;
@@ -12,7 +13,11 @@ type PosterCardProps = {
   img: string;
 };
 
-const PosterPage = () => {
+type Props = {
+  setSelectedPage: (value: SelectedPage) => void;
+};
+
+const PosterPage = ({ setSelectedPage }: Props) => {
   const [apiResponse, setApiResponse] = useState<PosterCardProps>({
     key: "",
     artist: "",
@@ -24,6 +29,7 @@ const PosterPage = () => {
   const [randomPoster, setRandomPoster] = useState<Record<string, Poster>>({});
   const path = window.location.pathname;
   console.log(path);
+  const { user } = useUser();
 
   useEffect(() => {
     fetch(`http://localhost:9000${path}`)
@@ -48,7 +54,7 @@ const PosterPage = () => {
   }, []);
 
   const addToCart = () => {
-    const user = JSON.parse(sessionStorage.getItem('user')!);
+    console.log(user);
     const requestBody = { user, poster: apiResponse };
     fetch(`http://localhost:9000${path}`, {
       method: "POST",
@@ -57,28 +63,26 @@ const PosterPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
-    })
-      .then((response) => {
-        if (response.ok) {
-          //Success!
-          alert("Poster added to cart!");
-        } 
-        else if (response.status === 400) {
-          // Bad request
-          alert("Error adding poster to cart: Poster already in cart!");}
-          else {
-          //Frick!
-          alert("Please login to add poster to cart!");
-        }
-      })
+    }).then((response) => {
+      if (response.ok) {
+        //Success!
+        alert("Poster added to cart!");
+      } else if (response.status === 400) {
+        // Bad request
+        alert("Error adding poster to cart: Poster already in cart!");
+      } else {
+        //Frick!
+        alert("Please login to add poster to cart!");
+      }
+    });
   };
 
   return (
-    <div className="h-full pt-[10%]">
+    <div className="h-full pl-8 pr-8 pt-20 md:pl-0 md:pr-0 md:pt-[10%]">
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
         <div className="img mx-auto flex justify-center">
           <img
-            className="max-w-sm shadow-md"
+            className="max-w-xs shadow-md md:max-w-sm"
             src={apiResponse.img}
             alt="posterimg"
           ></img>
@@ -94,26 +98,27 @@ const PosterPage = () => {
           <p className="pb-[3rem] font-sans text-xl text-amber-700">
             {apiResponse.price} kr
           </p>
-          <p className="mr-[20rem] w-3/4 md:mr-0 font-thin text-sky-800">
+          <p className="mr-[20rem] w-3/4 font-thin text-sky-800 md:mr-0">
             {apiResponse.description}
           </p>
           <button
-            className="mt-[18%] md:mt-0 rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600 hover:text-sky
-            -300"
+            className="hover:text-sky -300 mt-[18%] rounded-md bg-indigo-400 px-[30%] py-1 text-sky-100 hover:bg-indigo-600
+            md:mt-0"
             onClick={addToCart}
-            >
+          >
             Add to cart
-            </button>
-            </div>
-            </div>
-            <div className="mt-[10%]">
-            <HomeProducts
-                   text="EXPLORE OTHER POSTERS"
-                   apiResponse={randomPoster}
-                 ></HomeProducts>
-            </div>
-            </div>
-            );
-            };
-            
-            export default PosterPage;
+          </button>
+        </div>
+      </div>
+      <div className="mt-[10%]">
+        <HomeProducts
+          text="EXPLORE OTHER POSTERS"
+          apiResponse={randomPoster}
+          setSelectedPage={setSelectedPage}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default PosterPage;

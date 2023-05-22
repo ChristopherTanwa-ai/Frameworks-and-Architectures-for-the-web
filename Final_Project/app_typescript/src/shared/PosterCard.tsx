@@ -1,5 +1,6 @@
-import { SelectedPage } from '@/shared/types';
-import React from 'react';
+import { SelectedPage } from "@/shared/types";
+import React from "react";
+import { Link } from "react-router-dom";
 
 type PosterCardProps = {
   key: string;
@@ -22,18 +23,20 @@ const PosterCard: React.FC<PosterCardProps> = ({
 }) => {
   const title_noSpace = title.replace(/\s/g, "");
   return (
-    <a className='h-[550px] mb-3' href={`/product/${title_noSpace}`}>
+    <Link className="mb-3 h-[550px]" to={`/product/${title_noSpace}`}>
       <div className="relative h-full py-2">
-        <img src={img} alt={title} className='max-w-[300px] transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300' />
-        <div className='absolute bottom-4 left-0'>
-          <h2 className='font-bold text-primary-500'>{title}</h2>
-          <p className='font-thin'>{artist}</p>
-          <p className='text-primary-red'>{price} kr</p>
+        <img
+          src={img}
+          alt={title}
+          className="max-w-[300px] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105"
+        />
+        <div className="absolute bottom-4 left-0">
+          <h2 className="font-bold text-primary-500">{title}</h2>
+          <p className="font-thin">{artist}</p>
+          <p className="text-primary-red">{price} kr</p>
         </div>
       </div>
-
-    </a>
-
+    </Link>
   );
 };
 
