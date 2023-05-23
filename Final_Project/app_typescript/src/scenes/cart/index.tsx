@@ -29,7 +29,7 @@ const Cart = (props: Props) => {
           }));
           setCart(cartItems);
         } else {
-          fetch("http://localhost:9000/nousers")
+          fetch("http://localhost:9000/users/nousers")
             .then((response) => response.json())
             .then((data) => {
               const cartItems = data.map((item: any) => ({
