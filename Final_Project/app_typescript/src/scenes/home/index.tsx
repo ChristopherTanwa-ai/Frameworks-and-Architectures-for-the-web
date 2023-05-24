@@ -10,6 +10,8 @@ import HomeProducts from "./HomeProducts";
 import MainAbout from "./indexAbout";
 import { Link } from "react-router-dom";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
+import { useState, useEffect } from "react";
+import useUser from "@/hooks/useUser";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -17,9 +19,23 @@ type Props = {
   isTopOfPage: boolean;
 };
 
+
 const index = ({ setSelectedPage, apiResponse, isTopOfPage }: Props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
+  const { user } = useUser();
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    fetch("http://localhost:9000/users")
+      .then((response) => response.json())
+      .then((data) => {
+        if (user && user.email) {
+          const userFound = data.find(
+            (u: { email: any }) => u.email === user.email
+          );
+          const username2 = userFound.firstName;
+          setUsername(username2);}})});
 
   return (
     <>
@@ -48,6 +64,14 @@ const index = ({ setSelectedPage, apiResponse, isTopOfPage }: Props) => {
                   <img src={HomePageText} alt="home-page-text" />
                 </div>
               </div>
+
+              {/* Welcoming message */}
+      {user !== undefined && (
+        <div className="text mt-8">
+          <h2 className="text-2xl font-bold">Welcome, {username}!</h2>
+        </div>
+      )}
+
               <p className="mt-8 text-sm ">
                 Discover our vibrant, artistic poster collection, perfect for
                 transforming any space. Affordable, exclusive designs,

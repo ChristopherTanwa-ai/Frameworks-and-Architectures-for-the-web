@@ -21,7 +21,7 @@ router.post("/:poster", (req, res) => {
       //console.log("No user logged in");
       const filePath2 = path.join(__dirname, '../data/xBasket.json');
       const basketData = JSON.parse(fs.readFileSync(filePath2, "utf8"));
-      if (basketData.includes(poster)) {
+      if (basketData.some(item => item.id === poster.id)){
         // console.error("Poster already in cart");
         res.status(400).json({ message: "Poster already in cart" });
       }
