@@ -94,7 +94,7 @@ const Shop = ({ setSelectedPage }: Props) => {
       setFilteredApiResponse(filteredPosters);
     }
 
-    // console.log("apiResponse", apiResponse);
+    console.log("apiResponse", apiResponse);
     // console.log("filteredPosters", filteredPosters);
     // console.log("artists", artists);
     // console.log("prices", prices);
@@ -153,7 +153,7 @@ const Shop = ({ setSelectedPage }: Props) => {
 
           {Object.values(filteredApiResponse).map((poster: Poster) => (
             <PosterCard
-              key={poster.id}
+              Mykey={poster.id}
               artist={poster.artist}
               title={poster.title}
               description={poster.description}
