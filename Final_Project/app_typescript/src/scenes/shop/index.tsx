@@ -94,7 +94,7 @@ const Shop = ({ setSelectedPage }: Props) => {
       setFilteredApiResponse(filteredPosters);
     }
 
-    console.log("apiResponse", apiResponse);
+    //console.log("apiResponse", apiResponse);
     // console.log("filteredPosters", filteredPosters);
     // console.log("artists", artists);
     // console.log("prices", prices);
