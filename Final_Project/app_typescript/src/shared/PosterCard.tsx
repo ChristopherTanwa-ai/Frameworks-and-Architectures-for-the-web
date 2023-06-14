@@ -16,10 +16,7 @@ const PosterCard: React.FC<PosterCardProps> = ({
   artist,
   title,
   price,
-  description,
   img,
-  key,
-  setSelectedPage,
 }) => {
   const title_noSpace = title.replace(/\s/g, "");
   return (

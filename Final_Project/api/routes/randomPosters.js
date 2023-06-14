@@ -2,9 +2,14 @@ const express = require("express");
 const router = express.Router();
 const mainData = require('../data/data.json');
 
-
+/*
 router.get("/", function (req, res, next) {
   res.send({ ...randomPosters(mainData) });
+});
+*/
+router.get("/", function (req, res, next) {
+  const posters = randomPosters(mainData);
+  res.send(posters);
 });
 
 module.exports = router;

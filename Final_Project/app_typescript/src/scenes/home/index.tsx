@@ -1,9 +1,6 @@
-import React from "react";
 import { Poster, SelectedPage } from "@/shared/types";
-import ActionButton from "@/shared/ActionButton";
 import HomePageText from "@/assets/HomePageText.png";
 import HomePageGraphic from "@/assets/HomePageGraphic.png";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { motion } from "framer-motion";
 import HomeProducts from "./HomeProducts";
@@ -22,7 +19,6 @@ type Props = {
 
 const index = ({ setSelectedPage, apiResponse, isTopOfPage }: Props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
   const { user } = useUser();
   const [username, setUsername] = useState<string>("");
 

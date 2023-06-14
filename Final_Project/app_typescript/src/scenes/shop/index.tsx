@@ -153,7 +153,7 @@ const Shop = ({ setSelectedPage }: Props) => {
 
           {Object.values(filteredApiResponse).map((poster: Poster) => (
             <PosterCard
-              Mykey={poster.id}
+              key={poster.id}
               artist={poster.artist}
               title={poster.title}
               description={poster.description}

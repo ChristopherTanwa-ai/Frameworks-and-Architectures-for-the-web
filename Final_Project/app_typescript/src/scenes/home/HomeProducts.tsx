@@ -1,5 +1,4 @@
 import { SelectedPage, Poster } from "@/shared/types";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import { motion } from "framer-motion";
 import Htext from "@/shared/Htext";
 import PosterCard from "@/shared/PosterCard";
@@ -15,8 +14,6 @@ type Props = {
 
 const HomeProducts = ({ setSelectedPage, apiResponse, text }: Props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-  const posterObj = apiResponse;
 
   return (
     <div id="homeproducts" className="mx-auto min-h-full w-5/6 py-10">

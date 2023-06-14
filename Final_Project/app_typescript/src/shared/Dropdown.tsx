@@ -1,6 +1,5 @@
 import clsx from "clsx";
-import { on } from "events";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 type DropdownComponentProps = {
