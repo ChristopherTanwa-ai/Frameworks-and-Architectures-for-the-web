@@ -26,7 +26,7 @@ function App() {
       }
       if (window.scrollY !== 0) {
         SetIsTopOfPage(false);
-      }
+      } 
     };
 
     window.addEventListener("scroll", handleScroll);
